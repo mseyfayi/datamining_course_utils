@@ -56,3 +56,11 @@ def _eigenvalue(df: pd.DataFrame) -> Tuple[Any, Any]:
 
 def get_eigenvalue(df: pd.DataFrame) -> Tuple[Any, Any]:
     return _eigenvalue(create_cov_matrix(df))
+
+
+def pca(df: pd.DataFrame) -> pd.DataFrame:
+    w, v = get_eigenvalue(df)
+    res = df @ v
+    print('<<<<PCA>>>>')
+    print(res)
+    return res
