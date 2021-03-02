@@ -24,7 +24,7 @@ A personal project to implement Data-mining algorithms in python
 ### cov_series
 
 - Gets to pandas series and returns covariance of them
-- Covariance =>\
+- Covariance Formula:\
   ![Covariance formula](https://cdn.corporatefinanceinstitute.com/assets/covariance1.png)
 - Length of sr1 & sr2 must be equal
 - for example:
@@ -87,3 +87,6 @@ Gets a Matrix (pandas.Dataframe) and returns the PCA
 
 ### correlation_series
 
+- Gets two pandas.series and calculates their Pearson Correlation
+- Pearson Correlation Formula:\
+  ![Covariance formula](https://media.geeksforgeeks.org/wp-content/uploads/20200311233526/formula6.png)

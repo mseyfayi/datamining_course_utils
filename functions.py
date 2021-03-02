@@ -145,7 +145,15 @@ def get_pca(df: pd.DataFrame, threshold: float = 0.01) -> pd.DataFrame:
     return res
 
 
-def correlation_series(x: pd.Series, y: pd.Series) -> int:
+def correlation_series(x: pd.Series, y: pd.Series) -> float:
+    """
+    Gets two pandas.series and calculates their Pearson Correlation
+    Pearson Correlation Formula:
+        Sigma(x-~x)(y-~y)/sqrt(Sigma(x-~x)^2.Sigma(y-~y)^2)
+    :param x: First Series
+    :param y: Second Series
+    :return: Pearson Correlation between x & y
+    """
     if len(x) != len(y):
         raise ValueError('Length of x & y is not equal')
     if len(x) == 0:
