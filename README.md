@@ -75,3 +75,7 @@ output:
 1. Gets a matrix (pandas.Dataframe)
 2. Transforms it to its Covariance Matrix (using create_cov_matrix)
 3. Returns 'eigenvalue' and 'eigenvectors' (using _eigenvalue)
+
+#### pca
+
+Gets a Matrix (pandas.Dataframe) and returns the PCA

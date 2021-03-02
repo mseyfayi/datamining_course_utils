@@ -1,7 +1,7 @@
-from typing import Tuple, Any, List
+from typing import Tuple, List
 
-import pandas as pd
 import numpy as np
+import pandas as pd
 
 
 def sub_series(sr: pd.Series) -> pd.Series:
@@ -98,8 +98,8 @@ def _eigenvalue(df: pd.DataFrame) -> Tuple[List[int], List[List[int]]]:
     :return: (eigenvalue, eigenvectors) as a Tuple
     """
     w, v = np.linalg.eigh(df)
-    w = list(reversed(w))
-    v = list(reversed(v))
+    w = w[::-1]
+    v = v[:, ::-1]
     print('<<<<_Eigenvalue>>>>>')
     print('input: ')
     print(df)
@@ -120,9 +120,26 @@ def get_eigenvalue(df: pd.DataFrame) -> Tuple[List[int], List[List[int]]]:
     return _eigenvalue(create_cov_matrix(df))
 
 
-def pca(df: pd.DataFrame) -> pd.DataFrame:
+def pca(df: pd.DataFrame, threshold: float = 0.01) -> pd.DataFrame:
+    """
+    Gets a Matrix (pandas.Dataframe) and returns result of PCA of it
+    :param df: The input matrix (pandas.Dataframe)
+    :param threshold: Threshold of eigenvalues to drop lowers (float)
+    :return: PCA of input matrix (pandas.Dataframe)
+    """
     w, v = get_eigenvalue(df)
-    res = df @ v
+    threshold_index = next((i for i, x in enumerate(w) if x < threshold), None)
+    print(v)
+
+    if threshold_index:
+        v = np.delete(v, np.s_[threshold_index:], axis=1)
     print('<<<<PCA>>>>')
+
+    print('input')
+    print(df)
+    print('Transform Matrix:')
+    print(v)
+    res = df @ v
+    print('result: ')
     print(res)
     return res

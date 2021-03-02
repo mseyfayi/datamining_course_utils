@@ -138,7 +138,7 @@ class TestTempEigenvalue(unittest.TestCase):
         w, v = _eigenvalue(df)
 
         expw = np.array([4, 3, 0])
-        expv = np.array([[1, 0, 0], [0, 0, 1], [0, 1, 0]])
+        expv = np.array([[0, 1, 0], [1, 0, 0], [0, 0, 1]])
         assert_array_equal(expw, w)
         assert_array_equal(expv, v)
 
@@ -147,9 +147,9 @@ class TestEigenvalue(unittest.TestCase):
     def test1(self):
         df = pd.DataFrame({'1': [3, 4, 1, 2, 0], '2': [3, 4, 1, 2, 0]})
         w, v = get_eigenvalue(df)
-        expw = np.array([0, 4])
+        expw = np.array([4, 0])
         sqr2inv = 1 / np.sqrt(2)
-        expv = np.array([[-sqr2inv, sqr2inv], [sqr2inv, sqr2inv]])
+        expv = np.array([[sqr2inv, -sqr2inv], [sqr2inv, sqr2inv]])
         assert_array_equal(expw, w)
         assert_array_equal(expv, v)
 
@@ -159,11 +159,8 @@ class TestPCA(unittest.TestCase):
         l = [3, 4, 1, 2, 0]
         df = pd.DataFrame({'1': l, '2': l})
         sqr2 = np.sqrt(2)
-        exp = pd.DataFrame({
-            '0': np.zeros(5),
-            '1': [sqr2 * x for x in l]
-        })
-        np.array_equal(exp.values, pca(df))
+        exp = pd.DataFrame([[sqr2 * x] for x in l])
+        assert_frame_equal(exp, pca(df), check_column_type=False)
 
 
 if __name__ == '__main__':
