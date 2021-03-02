@@ -92,3 +92,7 @@ Gets a Matrix (pandas.Dataframe) and returns the PCA
 - Gets two pandas.series and calculates their Pearson Correlation
 - Pearson Correlation Formula:\
   ![Covariance formula](https://media.geeksforgeeks.org/wp-content/uploads/20200311233526/formula6.png)
+
+### correlation_frame
+
+Gets a matrix (pandas.Dataframe) and returns correlation matrix of its columns
