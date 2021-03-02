@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 from pandas.testing import assert_frame_equal, assert_series_equal
 from numpy.testing import assert_array_equal
-from pca import sub_series, cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue
+from pca import sub_series, cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue, pca
 
 
 class TestSubSeries(unittest.TestCase):
@@ -145,6 +145,18 @@ class TestEigenvalue(unittest.TestCase):
         expv = np.array([[-sqr2inv, sqr2inv], [sqr2inv, sqr2inv]])
         assert_array_equal(expw, w)
         assert_array_equal(expv, v)
+
+
+class TestPCA(unittest.TestCase):
+    def test1(self):
+        l = [3, 4, 1, 2, 0]
+        df = pd.DataFrame({'1': l, '2': l})
+        sqr2 = np.sqrt(2)
+        exp = pd.DataFrame({
+            '0': np.zeros(5),
+            '1': [sqr2 * x for x in l]
+        })
+        np.array_equal(exp.values, pca(df))
 
 
 if __name__ == '__main__':
