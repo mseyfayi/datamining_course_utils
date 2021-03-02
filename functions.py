@@ -173,6 +173,11 @@ def correlation_series(x: pd.Series, y: pd.Series) -> float:
 
 
 def correlation_frame(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Gets a matrix (pandas.Dataframe) and returns correlation matrix of its columns
+    :param df: Input matrix (pandas.Dataframe)
+    :return: correlation matrix (pandas.Dataframe)
+    """
     columns = df.columns
     data = {}
     for c1 in columns:

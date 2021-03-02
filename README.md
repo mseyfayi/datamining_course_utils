@@ -10,6 +10,8 @@ A personal project to implement Data-mining algorithms in python
 - [_eigenvalue](#_eigenvalue)
 - [get_eigenvalue](#get_eigenvalue)
 - [get_pca](#get_pca)
+- [correlation_series](#correlation_series)
+- [correlation_frame](#correlation_frame)
 - Tests: [test.py](test.py)
 
 ### sub_series
