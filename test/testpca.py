@@ -95,6 +95,13 @@ class TestCreateCovMatrix(unittest.TestCase):
                            index=['1', '2', '3'])
         assert_frame_equal(exp, create_cov_matrix(df), check_dtype=False, check_index_type=False)
 
+    def test3(self):
+        df = pd.DataFrame({'1': [3, 4, 1, 2, 0], '2': [1, 3, 0, 4, 2]})
+        print(df)
+        exp = pd.DataFrame({'1': [2, 3 / 5], '2': [3 / 5, 2]},
+                           index=['1', '2'])
+        assert_frame_equal(exp, create_cov_matrix(df), check_dtype=False, check_index_type=False)
+
 
 class TestTempEigenvalue(unittest.TestCase):
     def test1(self):

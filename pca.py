@@ -51,6 +51,33 @@ def cov_series(sr1: pd.Series, sr2: pd.Series) -> int:
 
 
 def create_cov_matrix(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Creates a Covariance Matrix from a matrix (pandas.Dataframe)
+
+        0       1       ... n
+    0   Cov00   Cov01       Cov0n
+    1   Cov10   Cov11       Cob1n
+    .                       .
+    .                       .
+    .                       .
+    n   Covn0   Covn1   ... Covnn
+
+    for example:
+    input:
+       1  2
+    0  3  1
+    1  4  3
+    2  1  0
+    3  2  4
+    4  0  2
+    output:
+         1     2
+    1  2.0   0.6
+    2  0.6   2.0
+
+    :param df: Input matrix (pandas.Dataframe)
+    :return: Covariance matrix (pandas.Dataframe)
+    """
     columns = df.columns
     data = {}
     for c1 in columns:
