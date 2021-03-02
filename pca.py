@@ -11,13 +11,26 @@ def sub_series(sr: pd.Series) -> pd.Series:
     sr = 3, 4, 1, 2, 0
     sr.mean = (3+4+1+2+0)/sr.len = 10/5 = 2
     result = 3-2, 4-2, 1-2, 2-2, 0-2 = 1, 2, -1, 0, -2
-    :param sr: pandas series
-    :return: sr - sr.mean()
+    :param sr: Series to calculate (pandas.Series)
+    :return: sr - sr.mean() (pandas.Series)
     """
     return sr - sr.mean()
 
 
 def cov_series(sr1: pd.Series, sr2: pd.Series) -> int:
+    """
+    Gets to pandas series and returns covariance of them
+    Covariance => Cov(a,b) = Sigma(i:0 -> n)(ai-~a)(bi-~b) / n
+    Length of sr1 & sr2 must be equal
+    for example:
+    sr1 = pd.Series([3, 4, 1, 2, 0])  # 1, 2, -1, 0, -2
+    sr2 = pd.Series([1, 3, 0, 4, 2])  # -1, 1, -2, 2, 0
+    result = ((1*-1) + (2*1) + (-1*-2) + (0*2) + (-2*0)) / sr1.len
+        = (-1 + 2 + 2 + 0 + 0) / 5 = 3 / 5 = 0.6
+    :param sr1: First series (pandas.Series)
+    :param sr2: Second series (pandas.Series)
+    :return: Covariance of sr1 & sr2 (int)
+    """
     if len(sr1) != len(sr2):
         raise ValueError('Length of sr1 & sr2 must be equal!')
     if len(sr1) == 0:
