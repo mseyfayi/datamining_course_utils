@@ -4,7 +4,19 @@ import pandas as pd
 import numpy as np
 from pandas.testing import assert_frame_equal, assert_series_equal
 from numpy.testing import assert_array_equal
-from pca import cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue, get_pca
+from functions import cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue, get_pca, sub_series
+
+
+class TestSubSeries(unittest.TestCase):
+    def test_empty(self):
+        sr = pd.Series(dtype='float64')
+        exp = sr
+        assert_series_equal(exp, sub_series(sr), check_dtype=False)
+
+    def test1(self):
+        sr = pd.Series([3, 4, 1, 2, 0])  # mean = 2
+        exp = pd.Series([1, 2, -1, 0, -2])
+        assert_series_equal(exp, sub_series(sr), check_dtype=False)
 
 
 class TestCvoSeries(unittest.TestCase):

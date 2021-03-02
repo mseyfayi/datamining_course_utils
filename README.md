@@ -4,13 +4,15 @@ A personal project to implement Data-mining algorithms in python
 
 ## Functions
 
-#### Utils
+- [sub_series](#sub_series)
+- [cov_series](#cov_series)
+- [create_cov_matrix](#create_cov_matrix)
+- [_eigenvalue](#_eigenvalue)
+- [get_eigenvalue](#get_eigenvalue)
+- [get_pca](#get_pca)
+- Tests: [test.py](test/test.py)
 
-- Functions: [utils.py](utils.py)
-    - [sub_series](#sub_series)
-- Tests: [testutils.py](test/testutils.py)
-
-#### sub_series
+### sub_series
 
 - Gets a pandas series, calculates average (mean) and returns result subtraction of the series and the average
 - for example:
@@ -19,17 +21,7 @@ A personal project to implement Data-mining algorithms in python
 > sr.mean = (3+4+1+2+0)/sr.len = 10/5 = 2\
 > result = [3-2, 4-2, 1-2, 2-2, 0-2] = [1, 2, -1, 0, -2]
 
-### PCA
-
-- Functions: [pca.py](pca.py)
-    - [cov_series](#cov_series)
-    - [create_cov_matrix](#create_cov_matrix)
-    - [_eigenvalue](#_eigenvalue)
-    - [get_eigenvalue](#get_eigenvalue)
-    - [get_pca](#get_pca)
-- Tests: [testpca.py](test/testpca.py)
-
-#### cov_series
+### cov_series
 
 - Gets to pandas series and returns covariance of them
 - Covariance =>\
@@ -44,7 +36,7 @@ A personal project to implement Data-mining algorithms in python
 > result = ((1*-1) + (2*1) + (-1*-2) + (0*2) + (-2*0)) / sr1.len  
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= (-1 + 2 + 2 + 0 + 0) / 5 = 3 / 5 = 0.6
 
-#### create_cov_matrix
+### create_cov_matrix
 
 Creates a Covariance Matrix from a matrix (pandas.Dataframe)
 
@@ -77,18 +69,18 @@ output:
 | **1**     | 2        | 0.6    | 
 | **2**     | 0.6      | 2      | 
 
-#### _eigenvalue
+### _eigenvalue
 
 - Gets a Matrix (pandas.Dataframe) and returns descending
   sorted [eigenvalue & eigenvectors](https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors)
 - This function using [numpy.linalg.eigh](https://numpy.org/doc/stable/reference/generated/numpy.linalg.eigh.html)
 
-#### get_eigenvalue
+### get_eigenvalue
 
 1. Gets a matrix (pandas.Dataframe)
 2. Transforms it to its Covariance Matrix (using create_cov_matrix)
 3. Returns 'eigenvalue' and 'eigenvectors' (using _eigenvalue)
 
-#### get_pca
+### get_pca
 
 Gets a Matrix (pandas.Dataframe) and returns the PCA
