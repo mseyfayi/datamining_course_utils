@@ -4,7 +4,8 @@ import pandas as pd
 import numpy as np
 from pandas.testing import assert_frame_equal, assert_series_equal
 from numpy.testing import assert_array_equal
-from functions import cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue, get_pca, sub_series
+from functions import cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue, get_pca, sub_series, \
+    correlation_series
 
 
 class TestSubSeries(unittest.TestCase):
@@ -161,6 +162,38 @@ class TestPCA(unittest.TestCase):
         sqr2 = np.sqrt(2)
         exp = pd.DataFrame([[sqr2 * x] for x in l])
         assert_frame_equal(exp, get_pca(df), check_column_type=False)
+
+
+class TestCorrelationSeries(unittest.TestCase):
+    def test_empty(self):
+        sr2 = sr1 = pd.Series(dtype='float64')
+        exp = 0
+        self.assertEqual(exp, correlation_series(sr1, sr2))
+
+    def test_raise_length_error(self):
+        x = pd.Series([3, 4, 2, 0])
+        y = pd.Series([1, 3, 0, 4, 2])
+        try:
+            correlation_series(x, y)
+            self.fail()
+        except ValueError:
+            self.assertEqual(True, True)
+
+    def test1(self):
+        x = pd.Series([3, 4, 1, 2, 0])  # 1, 2, -1, 0, -2
+        y = pd.Series([1, 3, 0, 4, 2])  # -1, 1, -2, 2, 0
+        # xy = 3
+        # xx = 10
+        # yy = 10
+        exp = 3 / 10
+        self.assertEqual(exp, correlation_series(x, y))
+
+    def test2(self):
+        x = pd.Series([13, 14, 35, 32, 4, 63, 234, 1])
+        y = pd.Series([1, 3, 0, 4, 2, 2, 42, 2])
+
+        exp = 0.961177121
+        np.testing.assert_almost_equal(exp, correlation_series(x, y))
 
 
 if __name__ == '__main__':

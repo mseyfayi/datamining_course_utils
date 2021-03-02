@@ -10,7 +10,7 @@ A personal project to implement Data-mining algorithms in python
 - [_eigenvalue](#_eigenvalue)
 - [get_eigenvalue](#get_eigenvalue)
 - [get_pca](#get_pca)
-- Tests: [test.py](test/test.py)
+- Tests: [test.py](test.py)
 
 ### sub_series
 
@@ -84,3 +84,6 @@ output:
 ### get_pca
 
 Gets a Matrix (pandas.Dataframe) and returns the PCA
+
+### correlation_series
+

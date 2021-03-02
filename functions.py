@@ -143,3 +143,20 @@ def get_pca(df: pd.DataFrame, threshold: float = 0.01) -> pd.DataFrame:
     print('result: ')
     print(res)
     return res
+
+
+def correlation_series(x: pd.Series, y: pd.Series) -> int:
+    if len(x) != len(y):
+        raise ValueError('Length of x & y is not equal')
+    if len(x) == 0:
+        return 0
+
+    x = sub_series(x)
+    y = sub_series(y)
+    xx = sum(x ** 2)
+    yy = sum(y ** 2)
+    xy = sum(x * y)
+    print('xx', xx)
+    print('yy', yy)
+    print('xy', xy)
+    return xy / np.sqrt(xx * yy)
