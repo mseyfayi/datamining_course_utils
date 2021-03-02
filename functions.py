@@ -158,7 +158,7 @@ def correlation_series(x: pd.Series, y: pd.Series) -> float:
         raise ValueError('Length of x & y is not equal')
     if len(x) == 0:
         return 0
-
+    print('<<<<Correlation Series>>>>')
     x = sub_series(x)
     y = sub_series(y)
     xx = sum(x ** 2)
@@ -167,4 +167,22 @@ def correlation_series(x: pd.Series, y: pd.Series) -> float:
     print('xx', xx)
     print('yy', yy)
     print('xy', xy)
-    return xy / np.sqrt(xx * yy)
+    result = xy / np.sqrt(xx * yy)
+    print('result: ', result)
+    return result
+
+
+def correlation_frame(df: pd.DataFrame) -> pd.DataFrame:
+    columns = df.columns
+    data = {}
+    for c1 in columns:
+        data[c1] = []
+        for c2 in columns:
+            data[c1].append(correlation_series(df[c1], df[c2]))
+    frame = pd.DataFrame(data, index=columns)
+    print('<<<<Correlation Frame>>>>')
+    print('input: ')
+    print(df)
+    print('output:')
+    print(frame)
+    return frame

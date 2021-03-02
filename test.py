@@ -5,7 +5,7 @@ import numpy as np
 from pandas.testing import assert_frame_equal, assert_series_equal
 from numpy.testing import assert_array_equal
 from functions import cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue, get_pca, sub_series, \
-    correlation_series
+    correlation_series, correlation_frame
 
 
 class TestSubSeries(unittest.TestCase):
@@ -194,6 +194,29 @@ class TestCorrelationSeries(unittest.TestCase):
 
         exp = 0.961177121
         np.testing.assert_almost_equal(exp, correlation_series(x, y))
+
+
+class TestCorrelationFrame(unittest.TestCase):
+    def test_empty(self):
+        df = pd.DataFrame()
+        exp = df
+        assert_frame_equal(exp, correlation_frame(df))
+
+    def test1(self):
+        x = pd.Series([3, 4, 1, 2, 0])  # 1, 2, -1, 0, -2
+        y = pd.Series([1, 3, 0, 4, 2])  # -1, 1, -2, 2, 0
+        df = pd.DataFrame({'x': x, 'y': y})
+        exp = pd.DataFrame([[1, 0.3], [0.3, 1]], columns=['x', 'y'], index=['x', 'y'])
+        assert_frame_equal(exp, correlation_frame(df))
+
+    def test2(self):
+        x = pd.Series([13, 14, 35, 32, 4, 63, 234, 1])
+        y = pd.Series([1, 3, 0, 4, 2, 2, 42, 2])
+        df = pd.DataFrame({'x': x, 'y': y})
+
+        e = 0.961177121410483
+        exp = pd.DataFrame([[1, e], [e, 1]], columns=['x', 'y'], index=['x', 'y'])
+        assert_frame_equal(exp, correlation_frame(df))
 
 
 if __name__ == '__main__':
