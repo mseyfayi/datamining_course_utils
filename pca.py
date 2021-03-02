@@ -10,7 +10,29 @@ def cov_series(sr1: pd.Series, sr2: pd.Series) -> int:
         raise ValueError('Length of sr1 & sr2 must be equal!')
     if len(sr1) == 0:
         return 0
+    print('<<<<Sub Covariance>>>>')
+    print('sr1: ', list(sr1))
+    print('sr2: ', list(sr2))
     sr1 = sub_series(sr1)
     sr2 = sub_series(sr2)
+    print("sr1': ", list(sr1))
+    print("sr2': ", list(sr2))
     pro = sr1 * sr2
-    return sum(pro) / len(pro)
+    print("pro: ", list(pro))
+    res = sum(pro) / len(pro)
+    print('res: ', res)
+    print('-----------------')
+    return res
+
+
+def create_cov_matrix(df: pd.DataFrame) -> pd.DataFrame:
+    columns = df.columns
+    data = {}
+    for c1 in columns:
+        data[c1] = []
+        for c2 in columns:
+            data[c1].append(cov_series(df[c1], df[c2]))
+    frame = pd.DataFrame(data, columns=columns,index=columns)
+    print('<<<Covariance Matrix>>>')
+    print(frame)
+    return frame
