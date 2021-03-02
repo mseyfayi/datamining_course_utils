@@ -4,9 +4,11 @@ A personal project to implement Data-mining algorithms in python
 
 ## Functions
 
-### PCA
+#### Utils
 
-Functions implemented in pca.py file & tests implemented in test/testpca.py
+- Functions: [utils.py](utils.py)
+    - [sub_series](#sub_series)
+- Tests: [testutils.py](test/testutils.py)
 
 #### sub_series
 
@@ -17,10 +19,21 @@ Functions implemented in pca.py file & tests implemented in test/testpca.py
 > sr.mean = (3+4+1+2+0)/sr.len = 10/5 = 2\
 > result = [3-2, 4-2, 1-2, 2-2, 0-2] = [1, 2, -1, 0, -2]
 
+### PCA
+
+- Functions: [pca.py](pca.py)
+    - [cov_series](#cov_series)
+    - [create_cov_matrix](#create_cov_matrix)
+    - [_eigenvalue](#_eigenvalue)
+    - [get_eigenvalue](#get_eigenvalue)
+    - [get_pca](#get_pca)
+- Tests: [testpca.py](test/testpca.py)
+
 #### cov_series
 
 - Gets to pandas series and returns covariance of them
-- Covariance =>![Covariance formula](https://cdn.corporatefinanceinstitute.com/assets/covariance1.png)
+- Covariance =>\
+  ![Covariance formula](https://cdn.corporatefinanceinstitute.com/assets/covariance1.png)
 - Length of sr1 & sr2 must be equal
 - for example:
 
@@ -76,6 +89,6 @@ output:
 2. Transforms it to its Covariance Matrix (using create_cov_matrix)
 3. Returns 'eigenvalue' and 'eigenvectors' (using _eigenvalue)
 
-#### pca
+#### get_pca
 
 Gets a Matrix (pandas.Dataframe) and returns the PCA

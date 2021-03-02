@@ -4,19 +4,6 @@ import numpy as np
 import pandas as pd
 
 
-def sub_series(sr: pd.Series) -> pd.Series:
-    """
-    Gets a pandas series, calculates average (mean) and returns result subtraction of the series and the average
-    for example:
-    sr = 3, 4, 1, 2, 0
-    sr.mean = (3+4+1+2+0)/sr.len = 10/5 = 2
-    result = 3-2, 4-2, 1-2, 2-2, 0-2 = 1, 2, -1, 0, -2
-    :param sr: Series to calculate (pandas.Series)
-    :return: sr - sr.mean() (pandas.Series)
-    """
-    return sr - sr.mean()
-
-
 def cov_series(sr1: pd.Series, sr2: pd.Series) -> int:
     """
     Gets to pandas series and returns covariance of them
@@ -120,7 +107,7 @@ def get_eigenvalue(df: pd.DataFrame) -> Tuple[List[int], List[List[int]]]:
     return _eigenvalue(create_cov_matrix(df))
 
 
-def pca(df: pd.DataFrame, threshold: float = 0.01) -> pd.DataFrame:
+def get_pca(df: pd.DataFrame, threshold: float = 0.01) -> pd.DataFrame:
     """
     Gets a Matrix (pandas.Dataframe) and returns result of PCA of it
     :param df: The input matrix (pandas.Dataframe)

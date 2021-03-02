@@ -4,19 +4,7 @@ import pandas as pd
 import numpy as np
 from pandas.testing import assert_frame_equal, assert_series_equal
 from numpy.testing import assert_array_equal
-from pca import sub_series, cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue, pca
-
-
-class TestSubSeries(unittest.TestCase):
-    def test_empty(self):
-        sr = pd.Series(dtype='float64')
-        exp = sr
-        assert_series_equal(exp, sub_series(sr), check_dtype=False)
-
-    def test1(self):
-        sr = pd.Series([3, 4, 1, 2, 0])  # mean = 2
-        exp = pd.Series([1, 2, -1, 0, -2])  # mean = 20
-        assert_series_equal(exp, sub_series(sr), check_dtype=False)
+from pca import cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue, get_pca
 
 
 class TestCvoSeries(unittest.TestCase):
@@ -160,7 +148,7 @@ class TestPCA(unittest.TestCase):
         df = pd.DataFrame({'1': l, '2': l})
         sqr2 = np.sqrt(2)
         exp = pd.DataFrame([[sqr2 * x] for x in l])
-        assert_frame_equal(exp, pca(df), check_column_type=False)
+        assert_frame_equal(exp, get_pca(df), check_column_type=False)
 
 
 if __name__ == '__main__':
