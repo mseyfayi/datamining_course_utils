@@ -1,3 +1,5 @@
+from typing import Tuple, Any
+
 import pandas as pd
 import numpy as np
 
@@ -39,7 +41,7 @@ def create_cov_matrix(df: pd.DataFrame) -> pd.DataFrame:
     return frame
 
 
-def _eigenvalue(df: pd.DataFrame):
+def _eigenvalue(df: pd.DataFrame) -> Tuple[Any, Any]:
     w, v = np.linalg.eigh(df)
     print('<<<<_Eigenvalue>>>>>')
     print('input: ')
@@ -52,5 +54,5 @@ def _eigenvalue(df: pd.DataFrame):
     return w, v
 
 
-def get_eigenvalue(df: pd.DataFrame):
+def get_eigenvalue(df: pd.DataFrame) -> Tuple[Any, Any]:
     return _eigenvalue(create_cov_matrix(df))
