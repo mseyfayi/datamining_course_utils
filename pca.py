@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 def sub_series(sr: pd.Series) -> pd.Series:
@@ -32,7 +33,24 @@ def create_cov_matrix(df: pd.DataFrame) -> pd.DataFrame:
         data[c1] = []
         for c2 in columns:
             data[c1].append(cov_series(df[c1], df[c2]))
-    frame = pd.DataFrame(data, columns=columns,index=columns)
+    frame = pd.DataFrame(data, columns=columns, index=columns)
     print('<<<Covariance Matrix>>>')
     print(frame)
     return frame
+
+
+def _eigenvalue(df: pd.DataFrame):
+    w, v = np.linalg.eigh(df)
+    print('<<<<_Eigenvalue>>>>>')
+    print('input: ')
+    print(df)
+    print('eigenvalues: ')
+    print(w)
+    print('eigenvectors: ')
+    print(v)
+
+    return w, v
+
+
+def get_eigenvalue(df: pd.DataFrame):
+    return _eigenvalue(create_cov_matrix(df))

@@ -1,8 +1,10 @@
 import unittest
-import pandas as pd
-from pandas.testing import assert_frame_equal, assert_series_equal
 
-from pca import sub_series, cov_series, create_cov_matrix
+import pandas as pd
+import numpy as np
+from pandas.testing import assert_frame_equal, assert_series_equal
+from numpy.testing import assert_array_equal
+from pca import sub_series, cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue
 
 
 class TestSubSeries(unittest.TestCase):
@@ -92,6 +94,57 @@ class TestCreateCovMatrix(unittest.TestCase):
         exp = pd.DataFrame({'1': [2, 3 / 5, -23 / 5], '2': [3 / 5, 2, -51 / 5], '3': [-23 / 5, -51 / 5, 282 / 5]},
                            index=['1', '2', '3'])
         assert_frame_equal(exp, create_cov_matrix(df), check_dtype=False, check_index_type=False)
+
+
+class TestTempEigenvalue(unittest.TestCase):
+    def test1(self):
+        df = pd.DataFrame({'1': [2, 0], '2': [0, 1]},
+                          index=['1', '2'])
+        w, v = _eigenvalue(df)
+        expw = np.array([1, 2])
+        expv = np.array([[0, 1], [1, 0]])
+        assert_array_equal(expw, w)
+        assert_array_equal(expv, v)
+
+    def test2(self):
+        df = pd.DataFrame({'1': [2, 0], '2': [0, 2]},
+                          index=['1', '2'])
+        w, v = _eigenvalue(df)
+        expw = np.array([2, 2])
+        expv = np.array([[1, 0], [0, 1]])
+        assert_array_equal(expw, w)
+        assert_array_equal(expv, v)
+
+    def test3(self):
+        df = pd.DataFrame({'1': [2, 0, 0], '2': [0, 2, 0], '3': [0, 0, 2]},
+                          index=['1', '2', '3'])
+        w, v = _eigenvalue(df)
+        expw = np.array([2, 2, 2])
+        expv = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+        assert_array_equal(expw, w)
+        assert_array_equal(expv, v)
+
+    def test4(self):
+        df = pd.DataFrame({'1': [3, 0, 0], '2': [0, 4, 0], '3': [0, 0, 0]},
+                          index=['1', '2', '3'])
+
+        w, v = _eigenvalue(df)
+
+        expw = np.array([0, 3, 4])
+        expv = np.array([[0, 1, 0], [0, 0, 1], [1, 0, 0]])
+        assert_array_equal(expw, w)
+        assert_array_equal(expv, v)
+
+
+class TestEigenvalue(unittest.TestCase):
+    def test1(self):
+        df = pd.DataFrame({'1': [3, 4, 1, 2, 0], '2': [3, 4, 1, 2, 0]})
+        w, v = get_eigenvalue(df)
+        expw = np.array([0, 4])
+        sqr2inv = 1 / np.sqrt(2)
+        expv = np.array([[-sqr2inv, sqr2inv], [sqr2inv, sqr2inv]])
+        assert_array_equal(expw, w)
+        assert_array_equal(expv, v)
 
 
 if __name__ == '__main__':
