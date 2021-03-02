@@ -1,4 +1,4 @@
-from typing import Tuple, Any
+from typing import Tuple, Any, List
 
 import pandas as pd
 import numpy as np
@@ -90,8 +90,16 @@ def create_cov_matrix(df: pd.DataFrame) -> pd.DataFrame:
     return frame
 
 
-def _eigenvalue(df: pd.DataFrame) -> Tuple[Any, Any]:
+def _eigenvalue(df: pd.DataFrame) -> Tuple[List[int], List[List[int]]]:
+    """
+    Gets a Matrix (pandas.Dataframe) and returns descending sorted 'eigenvalue' and 'eigenvectors'
+    This function using 'numpy.linalg.eigh'
+    :param df: Input Matrix (pandas.Dataframe)
+    :return: (eigenvalue, eigenvectors) as a Tuple
+    """
     w, v = np.linalg.eigh(df)
+    w = list(reversed(w))
+    v = list(reversed(v))
     print('<<<<_Eigenvalue>>>>>')
     print('input: ')
     print(df)
@@ -103,7 +111,12 @@ def _eigenvalue(df: pd.DataFrame) -> Tuple[Any, Any]:
     return w, v
 
 
-def get_eigenvalue(df: pd.DataFrame) -> Tuple[Any, Any]:
+def get_eigenvalue(df: pd.DataFrame) -> Tuple[List[int], List[List[int]]]:
+    """
+    Gets a matrix (pandas.Dataframe), transforms it to its Covariance Matrix and returns 'eigenvalue' and 'eigenvectors'
+    :param df: Input Matrix (pandas.Dataframe)
+    :return: (eigenvalue, eigenvectors) as a Tuple
+    """
     return _eigenvalue(create_cov_matrix(df))
 
 

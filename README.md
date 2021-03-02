@@ -61,5 +61,17 @@ output:
 
 |           | 1        | 2      | 
 | --------- | :------: | :----: | 
-| **0**     | 2        | 0.6    | 
-| **1**     | 0.6      | 2      | 
+| **1**     | 2        | 0.6    | 
+| **2**     | 0.6      | 2      | 
+
+#### _eigenvalue
+
+- Gets a Matrix (pandas.Dataframe) and returns descending
+  sorted [eigenvalue & eigenvectors](https://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors)
+- This function using [numpy.linalg.eigh](https://numpy.org/doc/stable/reference/generated/numpy.linalg.eigh.html)
+
+#### get_eigenvalue
+
+1. Gets a matrix (pandas.Dataframe)
+2. Transforms it to its Covariance Matrix (using create_cov_matrix)
+3. Returns 'eigenvalue' and 'eigenvectors' (using _eigenvalue)

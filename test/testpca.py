@@ -108,8 +108,8 @@ class TestTempEigenvalue(unittest.TestCase):
         df = pd.DataFrame({'1': [2, 0], '2': [0, 1]},
                           index=['1', '2'])
         w, v = _eigenvalue(df)
-        expw = np.array([1, 2])
-        expv = np.array([[0, 1], [1, 0]])
+        expw = np.array([2, 1])
+        expv = np.array([[1, 0], [0, 1]])
         assert_array_equal(expw, w)
         assert_array_equal(expv, v)
 
@@ -118,7 +118,7 @@ class TestTempEigenvalue(unittest.TestCase):
                           index=['1', '2'])
         w, v = _eigenvalue(df)
         expw = np.array([2, 2])
-        expv = np.array([[1, 0], [0, 1]])
+        expv = np.array([[0, 1], [1, 0]])
         assert_array_equal(expw, w)
         assert_array_equal(expv, v)
 
@@ -127,7 +127,7 @@ class TestTempEigenvalue(unittest.TestCase):
                           index=['1', '2', '3'])
         w, v = _eigenvalue(df)
         expw = np.array([2, 2, 2])
-        expv = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+        expv = np.array([[0, 0, 1], [0, 1, 0], [1, 0, 0]])
         assert_array_equal(expw, w)
         assert_array_equal(expv, v)
 
@@ -137,8 +137,8 @@ class TestTempEigenvalue(unittest.TestCase):
 
         w, v = _eigenvalue(df)
 
-        expw = np.array([0, 3, 4])
-        expv = np.array([[0, 1, 0], [0, 0, 1], [1, 0, 0]])
+        expw = np.array([4, 3, 0])
+        expv = np.array([[1, 0, 0], [0, 0, 1], [0, 1, 0]])
         assert_array_equal(expw, w)
         assert_array_equal(expv, v)
 
