@@ -210,4 +210,15 @@ def gini_series(sr: pd.Series) -> float:
 
 
 def gini_frame(df: pd.DataFrame) -> float:
-    return 1
+    col_sum = df.sum(axis=1)
+    col_gini = df.apply(gini_series, axis=1)
+    res = sum(col_gini * col_sum / sum(col_sum))
+    print('<<<<Frame Gini>>>>')
+    print('Sum of Columns')
+    print(col_sum)
+    print('Gini of Columns')
+    print(col_gini)
+    print('Result')
+    print(res)
+
+    return res

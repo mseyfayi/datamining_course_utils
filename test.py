@@ -241,12 +241,51 @@ class TestGiniSeries(unittest.TestCase):
         exp = 94 / 144
         np.testing.assert_almost_equal(exp, gini_series(sr))
 
+    def test4(self):
+        sr = pd.Series([10, 0])
+        exp = 0
+        np.testing.assert_almost_equal(exp, gini_series(sr))
+
+    def test5(self):
+        sr = pd.Series([1, 15])
+        exp = 15 / 128
+        np.testing.assert_almost_equal(exp, gini_series(sr))
+
+    def test6(self):
+        sr = pd.Series([5, 4])
+        exp = 40 / 81
+        np.testing.assert_almost_equal(exp, gini_series(sr))
+
+    def test7(self):
+        sr = pd.Series([5, 5])
+        exp = 1 / 2
+        np.testing.assert_almost_equal(exp, gini_series(sr))
+
 
 class TestGiniFrame(unittest.TestCase):
     def test_empty(self):
         df = pd.DataFrame()
-        exp = 1
+        exp = 0
         self.assertEqual(exp, gini_frame(df))
+
+    def test1(self):
+        df = pd.DataFrame([
+            [5, 4, 3],
+            [0, 0, 10],
+            [3, 3, 3]
+        ])
+        exp = 83 / 186
+        np.testing.assert_almost_equal(exp, gini_frame(df))
+
+    def test2(self):
+        df = pd.DataFrame([
+            [10, 0],
+            [1, 15],
+            [5, 4],
+            [5, 5]
+        ])
+        exp = 163 / 648
+        np.testing.assert_almost_equal(exp, gini_frame(df))
 
 
 if __name__ == '__main__':
