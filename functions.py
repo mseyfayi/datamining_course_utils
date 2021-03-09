@@ -191,3 +191,23 @@ def correlation_frame(df: pd.DataFrame) -> pd.DataFrame:
     print('output:')
     print(frame)
     return frame
+
+
+def gini_series(sr: pd.Series) -> float:
+    print(sr)
+    n = sum(sr)
+    p = sr / n
+    p2 = p * p
+    res = 1 - sum(p2)
+    print('<<<<Gini>>>>')
+    print('input:')
+    print(sr)
+    print('Possibility:')
+    print(p)
+    print('Result:')
+    print(res)
+    return res
+
+
+def gini_frame(df: pd.DataFrame) -> float:
+    return 1

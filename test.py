@@ -1,11 +1,12 @@
 import unittest
 
-import pandas as pd
 import numpy as np
-from pandas.testing import assert_frame_equal, assert_series_equal
+import pandas as pd
 from numpy.testing import assert_array_equal
+from pandas.testing import assert_frame_equal, assert_series_equal
+
 from functions import cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue, get_pca, sub_series, \
-    correlation_series, correlation_frame
+    correlation_series, correlation_frame, gini_series, gini_frame
 
 
 class TestSubSeries(unittest.TestCase):
@@ -217,6 +218,35 @@ class TestCorrelationFrame(unittest.TestCase):
         e = 0.961177121410483
         exp = pd.DataFrame([[1, e], [e, 1]], columns=['x', 'y'], index=['x', 'y'])
         assert_frame_equal(exp, correlation_frame(df))
+
+
+class TestGiniSeries(unittest.TestCase):
+    def test_empty(self):
+        sr = pd.Series(dtype='float64')
+        exp = 1
+        self.assertEqual(exp, gini_series(sr))
+
+    def test1(self):
+        sr = pd.Series([0, 0, 10])
+        exp = 0
+        np.testing.assert_almost_equal(exp, gini_series(sr))
+
+    def test2(self):
+        sr = pd.Series([3, 3, 3])
+        exp = 2 / 3
+        np.testing.assert_almost_equal(exp, gini_series(sr))
+
+    def test3(self):
+        sr = pd.Series([5, 4, 3])
+        exp = 94 / 144
+        np.testing.assert_almost_equal(exp, gini_series(sr))
+
+
+class TestGiniFrame(unittest.TestCase):
+    def test_empty(self):
+        df = pd.DataFrame()
+        exp = 1
+        self.assertEqual(exp, gini_frame(df))
 
 
 if __name__ == '__main__':
