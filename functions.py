@@ -171,6 +171,7 @@ def correlation_series(x: pd.Series, y: pd.Series) -> float:
     print('result: ', result)
     return result
 
+###########################################
 
 def correlation_frame(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -192,6 +193,22 @@ def correlation_frame(df: pd.DataFrame) -> pd.DataFrame:
     print(frame)
     return frame
 
+###########################################
+
+def weighted_average_of_impurity(df: pd.DataFrame, impurity_func: Callable[[pd.Series], float]) -> float:
+    col_sum = df.sum(axis=1)
+    col_gini = df.apply(impurity_func, axis=1)
+    res = sum(col_gini * col_sum / sum(col_sum))
+    print('<<<<Frame Gini>>>>')
+    print('Sum of Columns')
+    print(col_sum)
+    print('Gini of Columns')
+    print(col_gini)
+    print('Result')
+    print(res)
+
+    return res
+
 
 def get_possibility_series(sr: pd.Series) -> pd.Series:
     return sr / sum(sr)
@@ -208,21 +225,6 @@ def gini_series(sr: pd.Series) -> float:
     print(p)
     print('Result:')
     print(res)
-    return res
-
-
-def weighted_average_of_impurity(df: pd.DataFrame, impurity_func: Callable[[pd.Series], float]) -> float:
-    col_sum = df.sum(axis=1)
-    col_gini = df.apply(impurity_func, axis=1)
-    res = sum(col_gini * col_sum / sum(col_sum))
-    print('<<<<Frame Gini>>>>')
-    print('Sum of Columns')
-    print(col_sum)
-    print('Gini of Columns')
-    print(col_gini)
-    print('Result')
-    print(res)
-
     return res
 
 
