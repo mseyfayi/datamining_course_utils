@@ -224,3 +224,19 @@ def weighted_average_of_impurity(df: pd.DataFrame, impurity_func: Callable[[pd.S
     print(res)
 
     return res
+
+
+def entropy_series(sr: pd.Series) -> float:
+    p = get_possibility_series(sr)
+    n = len(sr)
+    log_p = (np.log(p) / np.log(n)).replace(-np.inf, 0)
+    p_log_p = p * log_p
+    res = -sum(p_log_p)
+    print('<<<<Entropy>>>>')
+    print('input:')
+    print(sr)
+    print('Possibility:')
+    print(p)
+    print('Result:')
+    print(res)
+    return res
