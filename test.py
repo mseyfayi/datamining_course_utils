@@ -6,7 +6,7 @@ from numpy.testing import assert_array_equal
 from pandas.testing import assert_frame_equal, assert_series_equal
 
 from functions import cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue, get_pca, sub_series, \
-    correlation_series, correlation_frame, gini_series, gini_frame
+    correlation_series, correlation_frame, gini_series, weighted_average_of_impurity
 
 
 class TestSubSeries(unittest.TestCase):
@@ -266,7 +266,7 @@ class TestGiniFrame(unittest.TestCase):
     def test_empty(self):
         df = pd.DataFrame()
         exp = 0
-        self.assertEqual(exp, gini_frame(df))
+        self.assertEqual(exp, weighted_average_of_impurity(df, gini_series))
 
     def test1(self):
         df = pd.DataFrame([
@@ -275,7 +275,7 @@ class TestGiniFrame(unittest.TestCase):
             [3, 3, 3]
         ])
         exp = 83 / 186
-        np.testing.assert_almost_equal(exp, gini_frame(df))
+        np.testing.assert_almost_equal(exp, weighted_average_of_impurity(df, gini_series))
 
     def test2(self):
         df = pd.DataFrame([
@@ -285,7 +285,7 @@ class TestGiniFrame(unittest.TestCase):
             [5, 5]
         ])
         exp = 163 / 648
-        np.testing.assert_almost_equal(exp, gini_frame(df))
+        np.testing.assert_almost_equal(exp, weighted_average_of_impurity(df, gini_series))
 
 
 if __name__ == '__main__':

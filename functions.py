@@ -1,4 +1,4 @@
-from typing import Tuple, List
+from typing import Tuple, List, Callable
 
 import numpy as np
 import pandas as pd
@@ -209,9 +209,9 @@ def gini_series(sr: pd.Series) -> float:
     return res
 
 
-def gini_frame(df: pd.DataFrame) -> float:
+def weighted_average_of_impurity(df: pd.DataFrame, impurity_func: Callable[[pd.Series], float]) -> float:
     col_sum = df.sum(axis=1)
-    col_gini = df.apply(gini_series, axis=1)
+    col_gini = df.apply(impurity_func, axis=1)
     res = sum(col_gini * col_sum / sum(col_sum))
     print('<<<<Frame Gini>>>>')
     print('Sum of Columns')
