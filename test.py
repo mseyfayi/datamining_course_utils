@@ -7,7 +7,7 @@ from pandas.testing import assert_frame_equal, assert_series_equal
 
 from functions import cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue, get_pca, sub_series, \
     correlation_series, correlation_frame, gini_series, weighted_average_of_impurity, get_possibility_series, \
-    entropy_series
+    entropy_series, classification_error_series
 
 
 class TestSubSeries(unittest.TestCase):
@@ -341,6 +341,38 @@ class TestEntropySeries(unittest.TestCase):
         sr = pd.Series([5, 5])
         exp = 1
         np.testing.assert_almost_equal(exp, entropy_series(sr))
+
+
+class TestClassificationErrorSeries(unittest.TestCase):
+    def test_empty(self):
+        sr = pd.Series(dtype='float64')
+        exp = 0
+        self.assertEqual(exp, entropy_series(sr))
+
+    def test1(self):
+        sr = pd.Series([0, 0, 10])
+        exp = 0
+        np.testing.assert_almost_equal(exp, classification_error_series(sr))
+
+    def test2(self):
+        sr = pd.Series([3, 3, 3])
+        exp = 2 / 3
+        np.testing.assert_almost_equal(exp, classification_error_series(sr))
+
+    def test3(self):
+        sr = pd.Series([10, 0])
+        exp = 0
+        np.testing.assert_almost_equal(exp, classification_error_series(sr))
+
+    def test4(self):
+        sr = pd.Series([5, 9])
+        exp = 5 / 14
+        np.testing.assert_almost_equal(exp, classification_error_series(sr))
+
+    def test5(self):
+        sr = pd.Series([5, 5])
+        exp = 1/2
+        np.testing.assert_almost_equal(exp, classification_error_series(sr))
 
 
 if __name__ == '__main__':

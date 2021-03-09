@@ -240,3 +240,8 @@ def entropy_series(sr: pd.Series) -> float:
     print('Result:')
     print(res)
     return res
+
+
+def classification_error_series(sr: pd.Series) -> float:
+    p = get_possibility_series(sr)
+    return 1 - p.max()
