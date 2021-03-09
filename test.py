@@ -6,7 +6,7 @@ from numpy.testing import assert_array_equal
 from pandas.testing import assert_frame_equal, assert_series_equal
 
 from functions import cov_series, create_cov_matrix, _eigenvalue, get_eigenvalue, get_pca, sub_series, \
-    correlation_series, correlation_frame, gini_series, weighted_average_of_impurity
+    correlation_series, correlation_frame, gini_series, weighted_average_of_impurity, get_possibility_series
 
 
 class TestSubSeries(unittest.TestCase):
@@ -218,6 +218,28 @@ class TestCorrelationFrame(unittest.TestCase):
         e = 0.961177121410483
         exp = pd.DataFrame([[1, e], [e, 1]], columns=['x', 'y'], index=['x', 'y'])
         assert_frame_equal(exp, correlation_frame(df))
+
+
+class TestGetPossibilitySeries(unittest.TestCase):
+    def test_empty(self):
+        sr = pd.Series(dtype='float64')
+        exp = sr
+        assert_series_equal(exp, get_possibility_series(sr))
+
+    def test1(self):
+        sr = pd.Series([10, 0])
+        exp = pd.Series([1, 0])
+        assert_series_equal(exp, get_possibility_series(sr), check_dtype=False)
+
+    def test2(self):
+        sr = pd.Series([5, 5])
+        exp = pd.Series([1 / 2, 1 / 2])
+        assert_series_equal(exp, get_possibility_series(sr), check_dtype=False)
+
+    def test3(self):
+        sr = pd.Series([6, 4, 2])
+        exp = pd.Series([1 / 2, 1 / 3, 1 / 6])
+        assert_series_equal(exp, get_possibility_series(sr), check_dtype=False)
 
 
 class TestGiniSeries(unittest.TestCase):
